@@ -56,3 +56,24 @@ module.exports.createUser = async (req, res) => {
     });
   }
 };
+
+module.exports.updateUser = async (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "User cannot be empty"
+    });
+  }
+
+  const { id } = req.params;
+
+  try {
+    const data = await User.findByIdAndUpdate(id, {
+      ...req.body
+    });
+    res.send(data);
+  } catch (e) {
+    res.status(500).send({
+      message: e.message
+    });
+  }
+};
