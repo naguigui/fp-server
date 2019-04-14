@@ -1,12 +1,12 @@
-const { ApolloServer } = require("apollo-server-express");
-const { typeDefs } = require("./typeDefs");
-const { userResolver } = require("./resolvers/user");
+const { ApolloServer } = require('apollo-server-express')
+const { typeDefs } = require('./typeDefs')
+const { userResolver } = require('./resolvers/user')
 
-const resolvers = userResolver;
+const resolvers = userResolver
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers
-});
+	typeDefs,
+	resolvers
+})
 
-module.exports = server;
+module.exports = server

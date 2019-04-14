@@ -1,5 +1,5 @@
-const User = require("./user");
+const User = require('./user')
 
-const typeDefs = [User];
+const typeDefs = [User]
 
-module.exports = { typeDefs };
+module.exports = { typeDefs }
