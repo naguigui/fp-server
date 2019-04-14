@@ -20,12 +20,12 @@ module.exports = gql`
 		age: Int
 	}
 
-	type Query {
+	extend type Query {
 		users: [User]
 		user(id: ID!): User
 	}
 
-	type Mutation {
+	extend type Mutation {
 		createUser(input: UserInput!): User
 		updateUser(id: String!, input: UserInput!): User
 		deleteUser(id: String!): User
