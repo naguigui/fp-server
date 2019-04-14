@@ -5,9 +5,9 @@ module.exports = gql`
     _id: ID!
     name: String!
     email: String!
-    gender: String!
-    weight: Int!
-    height: Int!
-    age: Int!
+    gender: String
+    weight: Int
+    height: Int
+    age: Int
   }
 `;
