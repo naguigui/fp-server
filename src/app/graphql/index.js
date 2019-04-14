@@ -1,10 +1,11 @@
 const { ApolloServer } = require("apollo-server-express");
-const typeDefs = require("./typeDefs");
+const { typeDefs } = require("./typeDefs");
+const { getUsers, getUser } = require("./resolvers/user");
 
-// A map of functions which return data for the schema.
 const resolvers = {
   Query: {
-    hello: () => "world"
+    users: getUsers,
+    user: getUser
   }
 };
 
