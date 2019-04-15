@@ -1,5 +1,5 @@
 /* eslint-disable */
-const mongoose = require('mongoose')
+import mongoose = require('mongoose')
 
 mongoose.Promise = global.Promise
 

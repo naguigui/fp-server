@@ -1,7 +1,7 @@
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const { pick } = require('lodash')
-const { SALT_ROUNDS } = require('../../../utils/constants')
+import * as bcrypt from 'bcrypt'
+import * as jwt from 'jsonwebtoken'
+import { pick } from 'lodash'
+import { SALT_ROUNDS } from '../../../utils/constants'
 
 const User = require('../../users/model')
 
@@ -9,7 +9,7 @@ const getUsers = async () => {
 	return await User.find().lean()
 }
 
-const getUser = async (parent, args, context) => {
+const getUser = async (parent: object, args: object, context: { user: any }) => {
 	const { user } = context
 	if (user) {
 		const { _id: id } = user
@@ -18,29 +18,29 @@ const getUser = async (parent, args, context) => {
 	return null
 }
 
-const createUser = async (parent, args) => {
+const createUser = async (parent: object, args: { input: any }) => {
 	const { input } = args
 	return await User.create(input).lean()
 }
 
-const updateUser = async (parent, args) => {
+const updateUser = async (parent: object, args: any) => {
 	const { id, input } = args
 	return (await User.findByIdAndUpdate(id, input).lean()) || null
 }
 
-const deleteUser = async (parent, args) => {
+const deleteUser = async (parent: any, args: any) => {
 	const { id } = args
 	return await User.findByIdAndRemove(id).lean()
 }
 
-const registerUser = async (parent, args) => {
+const registerUser = async (parent: any, args: any) => {
 	const data = args
 	data.password = await bcrypt.hash(data.password, SALT_ROUNDS)
 	const user = await User.create(data)
 	return user.toObject()
 }
 
-const login = async (parent, args, context) => {
+const login = async (parent: any, args: any, context: any) => {
 	const { email, password } = args
 	const { JWT_SECRET } = context
 
@@ -68,7 +68,7 @@ const login = async (parent, args, context) => {
 	return token
 }
 
-module.exports.userResolver = {
+export const userResolver = {
 	Query: {
 		users: getUsers,
 		me: getUser

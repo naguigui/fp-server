@@ -1,5 +1,5 @@
-const { app } = require('./app')
-const graphQLServer = require('./app/graphql/graphServer')
+import app from './app'
+import graphQLServer from './app/graphql/graphServer'
 
 require('./db/mongoose')
 
