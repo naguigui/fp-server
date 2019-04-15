@@ -15,7 +15,7 @@ const getUser = async (parent, args, context) => {
 		const { _id: id } = user
 		return await User.findById(id).lean()
 	}
-	return await User.findById(_id).lean()
+	return null
 }
 
 const createUser = async (parent, args) => {

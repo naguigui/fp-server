@@ -11,6 +11,7 @@ const jwtMiddleWare = async (req) => {
 		const { user } = await jwt.verify(token, JWT_SECRET)
 		req.user = user
 	} catch (e) {
+		// eslint-disable-next-line
 		console.log(e)
 	}
 	req.next()
