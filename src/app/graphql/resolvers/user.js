@@ -1,42 +1,83 @@
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const { pick } = require('lodash')
+const { SALT_ROUNDS } = require('../../../utils/constants')
+
 const User = require('../../users/model')
 
 const getUsers = async () => {
-	const users = await User.find()
-	return users.map((user) => user.toObject())
+	return await User.find().lean()
 }
 
-const getUser = async (_, args) => {
-	const { id } = args
-	const user = await User.findById(id)
-	return user.toObject()
+const getUser = async (parent, args, context) => {
+	const { user } = context
+	if (user) {
+		const { _id: id } = user
+		return await User.findById(id).lean()
+	}
+	return await User.findById(_id).lean()
 }
 
-const createUser = async (_, args) => {
+const createUser = async (parent, args) => {
 	const { input } = args
-	const user = await User.create(input)
-	return user.toObject()
+	return await User.create(input).lean()
 }
 
-const updateUser = async (_, args) => {
+const updateUser = async (parent, args) => {
 	const { id, input } = args
-	const user = await User.findByIdAndUpdate(id, input)
-	return user ? user.toObject() : null
+	return (await User.findByIdAndUpdate(id, input).lean()) || null
 }
 
-const deleteUser = async (_, args) => {
+const deleteUser = async (parent, args) => {
 	const { id } = args
-	const user = await User.findByIdAndRemove(id)
+	return await User.findByIdAndRemove(id).lean()
+}
+
+const registerUser = async (parent, args) => {
+	const data = args
+	data.password = await bcrypt.hash(data.password, SALT_ROUNDS)
+	const user = await User.create(data)
 	return user.toObject()
+}
+
+const login = async (parent, args, context) => {
+	const { email, password } = args
+	const { JWT_SECRET } = context
+
+	const user = await User.findOne({
+		email: email
+	}).lean()
+
+	if (!user) {
+		throw new Error('Something went wrong')
+	}
+	const valid = await bcrypt.compare(password, user.password)
+	if (!valid) {
+		throw new Error('Bad password!')
+	}
+
+	const token = jwt.sign(
+		{
+			user: pick(user, ['_id'])
+		},
+		JWT_SECRET,
+		{
+			expiresIn: '1y'
+		}
+	)
+	return token
 }
 
 module.exports.userResolver = {
 	Query: {
 		users: getUsers,
-		user: getUser
+		me: getUser
 	},
 	Mutation: {
 		createUser,
 		updateUser,
-		deleteUser
+		deleteUser,
+		registerUser,
+		login
 	}
 }
