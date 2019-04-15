@@ -1,5 +1,5 @@
 const { app } = require('./app')
-const graphQLServer = require('./app/graphql')
+const graphQLServer = require('./app/graphql/graphServer')
 
 require('./db/mongoose')
 
