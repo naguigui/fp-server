@@ -4,7 +4,7 @@ import { userResolver } from './resolvers/user'
 
 interface Request {
 	req: {
-		JWT_SECRET: string,
+		JWT_SECRET: string
 		user: {
 			_id: string
 		}
