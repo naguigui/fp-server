@@ -4,10 +4,12 @@ import { userResolver } from './resolvers/user'
 
 interface Request {
 	req: {
-		user: any
+		JWT_SECRET: string,
+		user: {
+			_id: string
+		}
 	}
 }
-
 
 const resolvers = userResolver
 
