@@ -38,6 +38,7 @@ export const userResolver: ResolverMap = {
 		registerUser: async (_, args: registerUserInterface['args']) => {
 			const data = args
 			data.password = await bcrypt.hash(data.password, SALT_ROUNDS)
+			console.log(data)
 			const user = await User.create(data)
 			return user.toObject()
 		},

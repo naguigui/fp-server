@@ -1,16 +1,30 @@
-import { Schema, model } from 'mongoose'
+import { prop, Typegoose } from 'typegoose';
+import * as mongoose from 'mongoose'
 
-const UserSchema = new Schema(
-	{
-		name: String,
-		email: String,
-		password: String,
-		gender: String,
-		weight: Number,
-		height: Number,
-		age: Number
-	},
-	{ timestamps: { createdAt: 'created_at' } }
-)
+class User extends Typegoose {
+	@prop()
+	name?: string;
 
-export default model('User', UserSchema)
+	@prop({ required: true })
+	email: string;
+
+	@prop({ required: true })
+	password: string;
+
+	@prop()
+	gender?: string;
+
+	@prop()
+	weight?: number;
+
+	@prop()
+	height?: number;
+
+	@prop()
+	age?: number;
+}
+
+export default new User().getModelForClass(User, {
+	existingMongoose: mongoose,
+	schemaOptions: { collection: 'users'}
+});
