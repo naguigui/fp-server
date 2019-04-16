@@ -1,3 +1,4 @@
-module.exports.SALT_ROUNDS = 12;
-module.exports.JWT_SECRET = process.env.JWT_SECRET;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SALT_ROUNDS = 12;
 //# sourceMappingURL=constants.js.map

@@ -1,4 +1,6 @@
-export interface meInterface {
+import { Resolver } from '../../interfaces/ResolverType'
+
+export interface meInterface extends Resolver{
 	context: {
 		user: {
 			_id: string
@@ -6,27 +8,27 @@ export interface meInterface {
 	}
 }
 
-export interface updateUserInterface {
+export interface updateUserInterface extends Resolver {
 	args: {
 		id: string
 		input: any
 	}
 }
 
-export interface deleteUserInterface {
+export interface deleteUserInterface extends Resolver {
 	args: {
 		id: string
 	}
 }
 
-export interface registerUserInterface {
+export interface registerUserInterface extends Resolver {
 	args: {
 		email: string
 		password: string
 	}
 }
 
-export interface loginInterface {
+export interface loginInterface extends Resolver {
 	args: {
 		email: string
 		password: string

@@ -25,7 +25,7 @@ const app = express_1.default();
 const jwtMiddleWare = (req) => __awaiter(this, void 0, void 0, function* () {
     const token = req.headers.authorization;
     try {
-        const { user } = yield jwt.verify(token, process.env.JWT_SECRET);
+        const { user } = (yield jwt.verify(token, process.env.JWT_SECRET));
         req.user = user;
     }
     catch (e) {
