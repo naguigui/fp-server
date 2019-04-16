@@ -14,45 +14,44 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt = __importStar(require("bcrypt"));
 const jwt = __importStar(require("jsonwebtoken"));
 const lodash_1 = require("lodash");
 const constants_1 = require("../../../utils/constants");
-const User = require('../../users/model');
+const model_1 = __importDefault(require("../../users/model"));
 const getUsers = () => __awaiter(this, void 0, void 0, function* () {
-    return yield User.find().lean();
+    return yield model_1.default.find().lean();
 });
 const getUser = (parent, args, context) => __awaiter(this, void 0, void 0, function* () {
     const { user } = context;
     if (user) {
         const { _id: id } = user;
-        return yield User.findById(id).lean();
+        return yield model_1.default.findById(id).lean();
     }
     return null;
 });
-const createUser = (parent, args) => __awaiter(this, void 0, void 0, function* () {
-    const { input } = args;
-    return yield User.create(input).lean();
-});
 const updateUser = (parent, args) => __awaiter(this, void 0, void 0, function* () {
     const { id, input } = args;
-    return (yield User.findByIdAndUpdate(id, input).lean()) || null;
+    return (yield model_1.default.findByIdAndUpdate(id, input).lean()) || null;
 });
 const deleteUser = (parent, args) => __awaiter(this, void 0, void 0, function* () {
     const { id } = args;
-    return yield User.findByIdAndRemove(id).lean();
+    return yield model_1.default.findByIdAndRemove(id).lean();
 });
 const registerUser = (parent, args) => __awaiter(this, void 0, void 0, function* () {
     const data = args;
     data.password = yield bcrypt.hash(data.password, constants_1.SALT_ROUNDS);
-    const user = yield User.create(data);
+    const user = yield model_1.default.create(data);
     return user.toObject();
 });
 const login = (parent, args, context) => __awaiter(this, void 0, void 0, function* () {
     const { email, password } = args;
     const { JWT_SECRET } = context;
-    const user = yield User.findOne({
+    const user = yield model_1.default.findOne({
         email: email
     }).lean();
     if (!user) {
@@ -75,7 +74,6 @@ exports.userResolver = {
         me: getUser
     },
     Mutation: {
-        createUser,
         updateUser,
         deleteUser,
         registerUser,

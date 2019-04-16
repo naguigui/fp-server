@@ -2,8 +2,7 @@ import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import { pick } from 'lodash'
 import { SALT_ROUNDS } from '../../../utils/constants'
-
-const User = require('../../users/model')
+import User from '../../users/model'
 
 const getUsers = async () => {
 	return await User.find().lean()
@@ -16,11 +15,6 @@ const getUser = async (parent: object, args: object, context: { user: any }) => 
 		return await User.findById(id).lean()
 	}
 	return null
-}
-
-const createUser = async (parent: object, args: { input: any }) => {
-	const { input } = args
-	return await User.create(input).lean()
 }
 
 const updateUser = async (parent: object, args: any) => {
@@ -74,7 +68,6 @@ export const userResolver = {
 		me: getUser
 	},
 	Mutation: {
-		createUser,
 		updateUser,
 		deleteUser,
 		registerUser,
