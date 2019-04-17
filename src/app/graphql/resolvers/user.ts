@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import { pick } from 'lodash'
+import produce from 'immer'
 import User from '../../users/model'
 import { ResolverMap } from '../../interfaces/ResolverType'
 import {
@@ -37,10 +38,19 @@ export const userResolver: ResolverMap = {
 		},
 		registerUser: async (_, args: registerUserInterface['args']) => {
 			const data = args
+
+			// Check if email already exists
+			const user = await User.findOne({
+				email: data.email
+			}).lean()
+			
+			if (user) {
+				throw new Error("Email already exists")
+			}
+
 			data.password = await bcrypt.hash(data.password, SALT_ROUNDS)
-			console.log(data)
-			const user = await User.create(data)
-			return user.toObject()
+			const userToRegister = await User.create(data)
+			return userToRegister.toObject()
 		},
 		login: async (
 			_,
