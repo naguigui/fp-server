@@ -1,7 +1,7 @@
 import { Resolver } from '../../interfaces/ResolverType'
 
 export interface meInterface extends Resolver{
-	context: {
+	ctx: {
 		user: {
 			_id: string
 		}
@@ -33,7 +33,7 @@ export interface loginInterface extends Resolver {
 		email: string
 		password: string
 	}
-	context: {
+	ctx: {
 		JWT_SECRET: string
 	}
 }

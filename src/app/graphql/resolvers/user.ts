@@ -17,8 +17,8 @@ export const userResolver: ResolverMap = {
 		users: async () => {
 			return await User.find().lean()
 		},
-		me: async (parent, args, context: meInterface['context']) => {
-			const { user } = context
+		me: async (_, __, ctx: meInterface['ctx']) => {
+			const { user } = ctx
 			if (user) {
 				const { _id: id } = user
 				return await User.findById(id).lean()
@@ -45,10 +45,10 @@ export const userResolver: ResolverMap = {
 		login: async (
 			_,
 			args: loginInterface['args'],
-			context: loginInterface['context']
+			ctx: loginInterface['ctx']
 		) => {
 			const { email, password } = args
-			const { JWT_SECRET } = context
+			const { JWT_SECRET } = ctx
 
 			const user = await User.findOne({
 				email: email
@@ -71,7 +71,9 @@ export const userResolver: ResolverMap = {
 					expiresIn: '1y'
 				}
 			)
-			return token
+			return {
+				accessToken: token
+			}
 		}
 	}
 }
