@@ -21,10 +21,6 @@ export default gql`
 		age: Int
 	}
 
-	type Login {
-		accessToken: String
-	}
-
 	extend type Query {
 		users: [User]
 		me: User
@@ -35,6 +31,6 @@ export default gql`
 		updateUser(id: String!, input: UserInput!): User
 		deleteUser(id: String!): User
 		registerUser(email: String!, password: String!): User
-		login(email: String!, password: String!): Login
+		login(email: String!, password: String!): String
 	}
 `

@@ -81,9 +81,7 @@ export const userResolver: ResolverMap = {
 					expiresIn: '1y'
 				}
 			)
-			return {
-				accessToken: token
-			}
+			return token
 		}
 	}
 }
