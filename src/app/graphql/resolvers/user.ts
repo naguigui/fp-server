@@ -1,9 +1,9 @@
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import { pick } from 'lodash'
-import produce from 'immer'
 import User from '../../users/model'
 import { ResolverMap } from '../../interfaces/ResolverType'
+import { requiresAuth } from '../permissions'
 import {
 	meInterface,
 	updateUserInterface,
@@ -21,17 +21,17 @@ export const userResolver: ResolverMap = {
 		me: async (_, __, ctx: meInterface['ctx']) => {
 			const { user } = ctx
 			if (user) {
-				const { _id: id } = user
-				return await User.findById(id).lean()
+				const { _id } = user
+				return await User.findById(_id).lean()
 			}
 			return null
 		}
 	},
 	Mutation: {
-		updateUser: async (_, args: updateUserInterface['args']) => {
+		updateUser: requiresAuth.createResolver(async (_: any, args: updateUserInterface['args']) => {
 			const { id, input } = args
 			return (await User.findByIdAndUpdate(id, input).lean()) || null
-		},
+		}),
 		deleteUser: async (_, args: deleteUserInterface['args']) => {
 			const { id } = args
 			return await User.findByIdAndRemove(id).lean()
