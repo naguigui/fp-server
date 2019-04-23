@@ -1,4 +1,4 @@
-import { Resolver } from '../../interfaces/ResolverType'
+import { Resolver } from '../../../interfaces/ResolverType'
 
 export interface meInterface extends Resolver{
 	ctx: {
@@ -35,5 +35,16 @@ export interface loginInterface extends Resolver {
 	}
 	ctx: {
 		JWT_SECRET: string
+		JWT_SECRET_REFRESH: string
+	}
+}
+
+export interface refreshTokensInterface extends Resolver {
+	args: {
+		refreshToken: string
+	}
+	ctx: {
+		JWT_SECRET: string
+		JWT_SECRET_REFRESH: string
 	}
 }

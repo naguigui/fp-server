@@ -1,17 +1,18 @@
 import * as bcrypt from 'bcrypt'
-import * as jwt from 'jsonwebtoken'
-import { pick } from 'lodash'
-import User from '../../users/model'
-import { ResolverMap } from '../../interfaces/ResolverType'
-import { requiresAuth } from '../permissions'
+import jwt from 'jsonwebtoken'
+import User from '../../../users/model'
+import { ResolverMap } from '../../../interfaces/ResolverType'
+import { requiresAuth } from '../../permissions'
 import {
 	meInterface,
 	updateUserInterface,
 	loginInterface,
 	registerUserInterface,
-	deleteUserInterface
+	deleteUserInterface,
+	refreshTokensInterface
 } from './user-interface'
-import { SALT_ROUNDS } from '../../../utils/constants'
+import { SALT_ROUNDS } from '../../../../utils/constants'
+import { createTokens } from '../../../services/authService'
 
 export const userResolver: ResolverMap = {
 	Query: {
@@ -58,7 +59,7 @@ export const userResolver: ResolverMap = {
 			ctx: loginInterface['ctx']
 		) => {
 			const { email, password } = args
-			const { JWT_SECRET } = ctx
+			const { JWT_SECRET, JWT_SECRET_REFRESH } = ctx
 
 			const user = await User.findOne({
 				email: email
@@ -69,19 +70,52 @@ export const userResolver: ResolverMap = {
 			}
 			const valid = await bcrypt.compare(password, user.password)
 			if (!valid) {
-				throw new Error('Bad password!')
+				throw new Error('Invalid Login')
 			}
 
-			const token = jwt.sign(
-				{
-					user: pick(user, ['_id'])
-				},
-				JWT_SECRET,
-				{
-					expiresIn: '1y'
-				}
-			)
-			return token
-		}
+			const [accessToken, refreshToken] = await createTokens(user, JWT_SECRET, JWT_SECRET_REFRESH)
+
+			return {
+				accessToken,
+				refreshToken
+			}
+		},
+		refreshTokens: async (
+			_,
+			args: refreshTokensInterface['args'],
+			ctx: refreshTokensInterface['ctx']
+		) => {
+			const { refreshToken } = args
+			const { JWT_SECRET, JWT_SECRET_REFRESH } = ctx
+			let userId;
+			try {
+			  const { user: { _id } } = jwt.decode(refreshToken) as any;
+			  userId = _id;
+			} catch (err) {
+			  return {};
+			}
+		  
+			if (!userId) {
+			  return {};
+			}
+		  
+			const user = await User.findById(userId).lean()
+		  
+			if (!user) {
+			  return {};
+			}
+
+			try {
+			  await jwt.verify(refreshToken, JWT_SECRET_REFRESH);
+			} catch (err) {
+			  return {};
+			}
+		  
+			const [newToken, newRefreshToken] = await createTokens(user, JWT_SECRET, JWT_SECRET_REFRESH);
+			return {
+			  accessToken: newToken,
+			  refreshToken: newRefreshToken
+			};
+		},
 	}
 }

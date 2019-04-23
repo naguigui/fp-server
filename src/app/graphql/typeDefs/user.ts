@@ -21,16 +21,22 @@ export default gql`
 		age: Int
 	}
 
+	type AuthPayload {
+		accessToken: String!
+		refreshToken: String!
+	}
+
 	extend type Query {
 		users: [User]
 		me: User
 	}
 
 	extend type Mutation {
-		createUser(input: UserInput!): User
-		updateUser(id: String!, input: UserInput!): User
-		deleteUser(id: String!): User
-		registerUser(email: String!, password: String!): User
-		login(email: String!, password: String!): String
+		createUser(input: UserInput!): User!
+		updateUser(id: String!, input: UserInput!): User!
+		deleteUser(id: String!): User!
+		registerUser(email: String!, password: String!): User!
+		login(email: String!, password: String!): AuthPayload!
+		refreshTokens(refreshToken: String!) : AuthPayload!
 	}
 `
