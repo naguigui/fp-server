@@ -8,17 +8,20 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "better-npm-run start:dev",
     "prettier": "prettier --write \"src/**/*.js\"",
     "lint": "eslint src",
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "node .",
+    "start": "better-npm-run start",
+    "start:dev": "better-npm-run start:dev",
     "prettier:base": "prettier --parser typescript --single-quote",
     "prettier:check": "npm run prettier:base -- --list-different \"src/**/*.{ts,tsx}\"",
     "prettier:write": "npm run prettier:base -- --write \"src/**/*.{ts,tsx}\""
   },
   "betterScripts": {
+    "start": {
+      "command": "ts-node -r tsconfig-paths/register src/index.ts"
+    },
 		"start:dev": {
 			"command": "ts-node-dev -r tsconfig-paths/register src/index.ts"
     }
