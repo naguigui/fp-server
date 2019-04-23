@@ -1,4 +1,4 @@
-import { Resolver } from '../../../interfaces/ResolverType'
+import { Resolver } from '@/app/interfaces/ResolverType'
 
 export interface meInterface extends Resolver{
 	ctx: {

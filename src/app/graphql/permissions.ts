@@ -1,4 +1,4 @@
-import { Resolver } from '../interfaces/ResolverType'
+import { Resolver } from '@/app/interfaces/ResolverType'
 
 const createResolver = (resolver: any) => {
     const baseResolver = resolver;

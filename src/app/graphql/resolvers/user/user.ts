@@ -1,8 +1,8 @@
 import * as bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import User from '../../../users/model'
-import { ResolverMap } from '../../../interfaces/ResolverType'
-import { requiresAuth } from '../../permissions'
+import User from '@/app/users/model'
+import { ResolverMap } from '@/app/interfaces/ResolverType'
+import { requiresAuth } from '@/app/graphql/permissions'
 import {
 	meInterface,
 	updateUserInterface,
@@ -10,9 +10,9 @@ import {
 	registerUserInterface,
 	deleteUserInterface,
 	refreshTokensInterface
-} from './user-interface'
-import { SALT_ROUNDS } from '../../../../utils/constants'
-import { createTokens } from '../../../services/authService'
+} from '@/app/graphql/resolvers/user/user-interface'
+import { SALT_ROUNDS } from '@/utils/constants'
+import { createTokens } from '@/app/services/authService'
 
 export const userResolver: ResolverMap = {
 	Query: {

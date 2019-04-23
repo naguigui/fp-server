@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server-express'
-import User from './user'
+import User from '@/app/graphql/typeDefs/user'
 
 const RootTypeDef = gql`
 	type Query

@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-express'
-import { typeDefs } from './typeDefs'
-import { userResolver } from './resolvers/user/user'
+import { typeDefs } from '@/app/graphql/typeDefs'
+import { userResolver } from '@/app/graphql/resolvers/user/user'
 
 interface Request {
 	req: {

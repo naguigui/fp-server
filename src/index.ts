@@ -1,7 +1,7 @@
-import app from './app'
-import graphQLServer from './app/graphql/graphServer'
+import app from '@/app'
+import graphQLServer from '@/app/graphql/graphServer'
 
-import './db/mongoose'
+import '@/db/mongoose'
 
 graphQLServer.applyMiddleware({ app })
 

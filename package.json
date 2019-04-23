@@ -5,10 +5,10 @@
     "node": ">=10.0.0"
   },
   "description": "",
-  "main": "dist/index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "start:dev": "better-npm-run start:dev",
     "prettier": "prettier --write \"src/**/*.js\"",
     "lint": "eslint src",
     "build": "tsc",
@@ -17,6 +17,11 @@
     "prettier:base": "prettier --parser typescript --single-quote",
     "prettier:check": "npm run prettier:base -- --list-different \"src/**/*.{ts,tsx}\"",
     "prettier:write": "npm run prettier:base -- --write \"src/**/*.{ts,tsx}\""
+  },
+  "betterScripts": {
+		"start:dev": {
+			"command": "ts-node-dev -r tsconfig-paths/register src/index.ts"
+    }
   },
   "author": "Andrew Nguyen",
   "license": "ISC",
@@ -43,12 +48,16 @@
     "typegoose": "^5.6.0"
   },
   "devDependencies": {
+    "better-npm-run": "^0.1.1",
     "concurrently": "^4.1.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-node": "^8.0.1",
     "nodemon": "^1.18.11",
     "prettier": "^1.17.0",
+    "ts-node": "^8.1.0",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "tsconfig-paths": "^3.8.0",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.9.0",
     "typescript": "^3.4.3"

@@ -4,17 +4,22 @@
         "emitDecoratorMetadata": true,
         "module": "commonjs",
         "esModuleInterop": true,
-        "target": "es6",
+        "target": "es2018",
         "noImplicitAny": true,
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "dist",
         "baseUrl": ".",
-        "paths": {
+		"paths": {
+            "@/*": ["src/*"],
             "*": [
                 "node_modules/*"
             ]
-        }
+        },
+        "typeRoots": [
+			"./src/@types",
+			"node_modules/@types"
+		],
     },
     "include": [
         "src/**/*"

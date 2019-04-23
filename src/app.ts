@@ -1,7 +1,7 @@
 import express from 'express'
 import * as bodyParser from 'body-parser'
 import * as jwt from 'jsonwebtoken'
-import { JwtInterface } from './app/interfaces/App'
+import { JwtInterface } from '@/app/interfaces/App'
 
 const app: express.Application = express()
 
