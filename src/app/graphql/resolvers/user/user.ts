@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import User from '@/app/users/model'
+import User from '@/models/user.model'
 import { ResolverMap } from '@/app/interfaces/ResolverType'
 import { requiresAuth } from '@/app/graphql/permissions'
 import {
@@ -10,7 +10,7 @@ import {
 	registerUserInterface,
 	deleteUserInterface,
 	refreshTokensInterface
-} from '@/app/graphql/resolvers/user/user-interface'
+} from '@/app/interfaces/user-interface'
 import { SALT_ROUNDS } from '@/utils/constants'
 import { createTokens } from '@/app/services/authService'
 
@@ -29,15 +29,15 @@ export const userResolver: ResolverMap = {
 		}
 	},
 	Mutation: {
-		updateUser: requiresAuth.createResolver(async (_: any, args: updateUserInterface['args']) => {
+		updateUser: requiresAuth.createResolver(async (_parent: any, args: updateUserInterface['args']) => {
 			const { id, input } = args
-			return (await User.findByIdAndUpdate(id, input).lean()) || null
+			return await User.findByIdAndUpdate(id, input).lean()
 		}),
-		deleteUser: async (_, args: deleteUserInterface['args']) => {
+		deleteUser: async (_parent, args: deleteUserInterface['args']) => {
 			const { id } = args
 			return await User.findByIdAndRemove(id).lean()
 		},
-		registerUser: async (_, args: registerUserInterface['args']) => {
+		registerUser: async (_parent, args: registerUserInterface['args']) => {
 			const data = args
 
 			// Check if email already exists
@@ -54,7 +54,7 @@ export const userResolver: ResolverMap = {
 			return userToRegister.toObject()
 		},
 		login: async (
-			_,
+			_parent,
 			args: loginInterface['args'],
 			ctx: loginInterface['ctx']
 		) => {
@@ -81,7 +81,7 @@ export const userResolver: ResolverMap = {
 			}
 		},
 		refreshTokens: async (
-			_,
+			_parent,
 			args: refreshTokensInterface['args'],
 			ctx: refreshTokensInterface['ctx']
 		) => {

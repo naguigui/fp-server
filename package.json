@@ -22,8 +22,8 @@
     "start": {
       "command": "ts-node -r tsconfig-paths/register src/index.ts"
     },
-		"start:dev": {
-			"command": "ts-node-dev -r tsconfig-paths/register src/index.ts"
+    "start:dev": {
+      "command": "ts-node-dev -r tsconfig-paths/register src/index.ts"
     }
   },
   "author": "Andrew Nguyen",
@@ -42,6 +42,7 @@
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
     "graphql": "^14.2.1",
+    "graphql-merge-resolvers": "^1.1.10",
     "i": "^0.3.6",
     "immer": "^2.1.5",
     "jsonwebtoken": "^8.5.1",

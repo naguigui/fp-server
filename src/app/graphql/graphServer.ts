@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-express'
 import { typeDefs } from '@/app/graphql/typeDefs'
-import { userResolver } from '@/app/graphql/resolvers/user/user'
+import resolvers from '@/app/graphql/resolvers'
 
 interface Request {
 	req: {
@@ -10,8 +10,6 @@ interface Request {
 		}
 	}
 }
-
-const resolvers = userResolver
 
 const server = new ApolloServer({
 	typeDefs,
