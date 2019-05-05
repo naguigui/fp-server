@@ -13,12 +13,13 @@ export default gql`
 	type User {
 		_id: ID!
 		name: String
-		createdAt: String!
+		createdAt: String
 		email: String!
 		gender: String
 		weight: Int
 		height: Int
 		age: Int
+		routines: [Routine]
 	}
 
 	type AuthPayload {
@@ -27,13 +28,13 @@ export default gql`
 	}
 
 	extend type Query {
-		users: [User]
-		me: User
+		users: [User!]!
+		user: User!
 	}
 
 	extend type Mutation {
 		createUser(input: UserInput!): User!
-		updateUser(id: String!, input: UserInput!): User!
+		updateUser(input: UserInput!): User
 		deleteUser(id: String!): User!
 		registerUser(email: String!, password: String!): User!
 		login(email: String!, password: String!): AuthPayload!

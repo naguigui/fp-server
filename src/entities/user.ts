@@ -22,6 +22,9 @@ class User extends Typegoose {
 
 	@prop()
 	age?: number;
+
+	@prop({ default: Date.now()}) time: Date;
+	createdAt: Date;
 }
 
 export default new User().getModelForClass(User, {

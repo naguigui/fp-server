@@ -1,5 +1,6 @@
 import { gql } from 'apollo-server-express'
 import User from '@/app/graphql/typeDefs/user'
+import Routine from '@/app/graphql/typeDefs/routine'
 
 const RootTypeDef = gql`
 	type Query
@@ -10,4 +11,4 @@ const RootTypeDef = gql`
 	}
 `
 
-export const typeDefs = [RootTypeDef, User]
+export const typeDefs = [RootTypeDef, User, Routine]
