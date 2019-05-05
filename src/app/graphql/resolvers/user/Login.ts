@@ -1,28 +1,25 @@
 import * as bcrypt from 'bcrypt'
-import User from '@/entities/user'
 import { createTokens } from '@/app/services/authService'
 import { loginInterface } from '@/app/interfaces/userInterface'
 
-export default async (_parent: object, args: loginInterface['args'], ctx: any) => {
+export default async (_parent: object, args: loginInterface['args'], ctx: any): Promise<object> => {
     const { email, password } = args
-			const { JWT_SECRET, JWT_SECRET_REFRESH } = ctx
+	const { JWT_SECRET, JWT_SECRET_REFRESH, models: { User } } = ctx
 
-			const user = await User.findOne({
-				email: email
-			}).lean()
+	const user = await User.getByEmail(email)
 
-			if (!user) {
-				throw new Error('Something went wrong')
-			}
-			const valid = await bcrypt.compare(password, user.password)
-			if (!valid) {
-				throw new Error('Invalid Login')
-			}
+	if (!user) {
+		throw new Error('Something went wrong')
+	}
+	const valid = await bcrypt.compare(password, user.password)
+	if (!valid) {
+		throw new Error('Invalid Login')
+	}
 
-			const [accessToken, refreshToken] = await createTokens(user, JWT_SECRET, JWT_SECRET_REFRESH)
+	const [accessToken, refreshToken] = await createTokens(user, JWT_SECRET, JWT_SECRET_REFRESH)
 
-			return {
-				accessToken,
-				refreshToken
-			}
+	return {
+		accessToken,
+		refreshToken
+	}
 }

@@ -3,23 +3,29 @@ import * as bcrypt from 'bcrypt'
 import { SALT_ROUNDS } from '@/utils/constants'
 
 class UserConnector {
-    async getAllUsers() {
+    async getAllUsers(): Promise<object> {
         return await User.find()
     }
 
-    async getById(id: string) {
+    async getById(id: string): Promise<object> {
         return await User.findById(id)
     }
 
-    async updateUser(id: string, attr: object) {
+    async getByEmail(email: string): Promise<object> {
+        return await User.findOne({
+            email
+        })
+    }
+
+    async updateUser(id: string, attr: object): Promise<object> {
         return await User.findByIdAndUpdate(id, attr)
     }
 
-    async deleteUser(id: string) {
+    async deleteUser(id: string): Promise<object> {
         return await User.findByIdAndDelete(id)
     }
 
-    async registerUser(args: any) {
+    async registerUser(args: any): Promise<object> {
         const data = args
 
         // Check if email already exists

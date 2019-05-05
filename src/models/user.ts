@@ -12,6 +12,10 @@ class User {
     return this.connector.getById(id)
   }
 
+  async getByEmail(email: string) {
+    return this.connector.getByEmail(email)
+  }
+
   async updateUser(id: string, attr: object) {
     return this.connector.updateUser(id, attr)
   }

@@ -1,7 +1,7 @@
 import { createTokens } from '@/app/services/authService'
 import jwt from 'jsonwebtoken'
 
-export default async (_parent: any, args: any, ctx: any) => {
+export default async (_parent: any, args: any, ctx: any): Promise<object> => {
     const { refreshToken } = args
     const { JWT_SECRET, JWT_SECRET_REFRESH, models: { User } } = ctx
     let userId;
