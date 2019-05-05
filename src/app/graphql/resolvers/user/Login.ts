@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt'
-import User from '@/models/user.model'
+import User from '@/entities/user'
 import { createTokens } from '@/app/services/authService'
 import { loginInterface } from '@/app/interfaces/user-interface'
 

@@ -1,14 +1,20 @@
 import { ResolverMap } from '@/app/interfaces/ResolverType'
-import GetAllUsers from '@/app/graphql/resolvers/user/GetAllUsers'
-import CurrentUser from '@/app/graphql/resolvers/user/CurrentUser'
-import Login from '@/app/graphql/resolvers/user/Login'
+import getAllUsers from '@/app/graphql/resolvers/user/getAllUsers'
+import currentUser from '@/app/graphql/resolvers/user/currentUser'
+import updateUser from '@/app/graphql/resolvers/user/updateUser'
+import deleteUser from '@/app/graphql/resolvers/user/deleteUser'
+import registerUser from '@/app/graphql/resolvers/user/registerUser'
+import login from '@/app/graphql/resolvers/user/login'
 
 export const userResolver: ResolverMap = {
 	Query: {
-		users: GetAllUsers,
-		user: CurrentUser
+		users: getAllUsers,
+		user: currentUser
     },
     Mutation: {
-        login: Login
+        login,
+        updateUser,
+        deleteUser,
+        registerUser
     }
 }

@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import User from '@/models/user.model'
+import User from '@/entities/user'
 import { ResolverMap } from '@/app/interfaces/ResolverType'
 import { requiresAuth } from '@/app/graphql/permissions'
 import {

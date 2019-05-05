@@ -1,9 +1,8 @@
-import User from '@/models/user.model'
-
-export default async (_parent:object, _args:object, ctx: any) => {
-    const { user } = ctx
+export default async (_parent: object, _args: object, ctx: any) => {
+    const { models: { User }, user } = ctx
     if (user) {
-        const { _id } = user
-        return await User.findById(_id).lean()
+        const { _id: id } = user
+        return await User.getById(id)
     }
+    return null
 }
