@@ -1,33 +1,33 @@
-import { prop, Typegoose } from 'typegoose';
+import { prop, Typegoose } from 'typegoose'
 import * as mongoose from 'mongoose'
 
 class User extends Typegoose {
 	@prop()
-	name?: string;
+	name?: string
 
 	@prop({ required: true })
-	email: string;
+	email: string
 
 	@prop({ required: true })
-	password: string;
+	password: string
 
 	@prop()
-	gender?: string;
+	gender?: string
 
 	@prop()
-	weight?: number;
+	weight?: number
 
 	@prop()
-	height?: number;
+	height?: number
 
 	@prop()
-	age?: number;
+	age?: number
 
-	@prop({ default: Date.now()}) time: Date;
-	createdAt: Date;
+	@prop({ default: Date.now() }) time: Date
+	createdAt: Date
 }
 
 export default new User().getModelForClass(User, {
 	existingMongoose: mongoose,
-	schemaOptions: { collection: 'users'}
-});
+	schemaOptions: { collection: 'users' }
+})

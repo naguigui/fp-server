@@ -1,6 +1,6 @@
 import { Resolver } from '@/app/interfaces/ResolverType'
 
-export interface meInterface extends Resolver{
+export interface meInterface extends Resolver {
 	ctx: {
 		user: {
 			_id: string

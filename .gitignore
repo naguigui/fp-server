@@ -2,6 +2,7 @@
 /node_modules
 package-lock.json
 .envrc
+.vscode/
 
 
 # Ignores compiled TypeScript files

@@ -1,32 +1,32 @@
 class User {
-  connector: any
+	connector: any
 	constructor({ connector }: any) {
 		this.connector = connector
-  }
-  
-  async getAllUsers() {
-    return this.connector.getAllUsers()
-  }
+	}
 
-  async getById(id: string) {
-    return this.connector.getById(id)
-  }
+	async getAllUsers() {
+		return this.connector.getAllUsers()
+	}
 
-  async getByEmail(email: string) {
-    return this.connector.getByEmail(email)
-  }
+	async getById(id: string) {
+		return this.connector.getById(id)
+	}
 
-  async updateUser(id: string, attr: object) {
-    return this.connector.updateUser(id, attr)
-  }
+	async getByEmail(email: string) {
+		return this.connector.getByEmail(email)
+	}
 
-  async deleteUser(id: string) {
-    return this.connector.deleteUser(id)
-  }
+	async updateUser(id: string, attr: object) {
+		return this.connector.updateUser(id, attr)
+	}
 
-  async registerUser(attr: object) {
-    return this.connector.registerUser(attr)
-  }
+	async deleteUser(id: string) {
+		return this.connector.deleteUser(id)
+	}
+
+	async registerUser(attr: object) {
+		return this.connector.registerUser(attr)
+	}
 }
 
 export default User

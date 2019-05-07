@@ -1,7 +1,11 @@
-export default async (_parent: object, args: any, ctx: any): Promise<object> => {
-    const {
+export default async (
+	_parent: object,
+	args: any,
+	ctx: any
+): Promise<object> => {
+	const {
 		models: { User }
-    } = ctx
+	} = ctx
 
-    return await User.registerUser(args)
+	return await User.registerUser(args)
 }

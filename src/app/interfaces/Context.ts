@@ -1,5 +1,5 @@
 export interface Context {
-    models: {
-        User: any
-    }
+	models: {
+		User: any
+	}
 }

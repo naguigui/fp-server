@@ -2,9 +2,17 @@ import * as bcrypt from 'bcrypt'
 import { createTokens } from '@/app/services/authService'
 import { loginInterface } from '@/app/interfaces/userInterface'
 
-export default async (_parent: object, args: loginInterface['args'], ctx: any): Promise<object> => {
-    const { email, password } = args
-	const { JWT_SECRET, JWT_SECRET_REFRESH, models: { User } } = ctx
+export default async (
+	_parent: object,
+	args: loginInterface['args'],
+	ctx: any
+): Promise<object> => {
+	const { email, password } = args
+	const {
+		JWT_SECRET,
+		JWT_SECRET_REFRESH,
+		models: { User }
+	} = ctx
 
 	const user = await User.getByEmail(email)
 
@@ -16,7 +24,11 @@ export default async (_parent: object, args: loginInterface['args'], ctx: any): 
 		throw new Error('Invalid Login')
 	}
 
-	const [accessToken, refreshToken] = await createTokens(user, JWT_SECRET, JWT_SECRET_REFRESH)
+	const [accessToken, refreshToken] = await createTokens(
+		user,
+		JWT_SECRET,
+		JWT_SECRET_REFRESH
+	)
 
 	return {
 		accessToken,

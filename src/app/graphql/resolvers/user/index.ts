@@ -10,12 +10,12 @@ export default {
 	Query: {
 		users: getAllUsers,
 		user: currentUser
-    },
-    Mutation: {
-        login,
-        refreshTokens,
-        updateUser,
-        deleteUser,
-        registerUser
-    }
+	},
+	Mutation: {
+		login,
+		refreshTokens,
+		updateUser,
+		deleteUser,
+		registerUser
+	}
 }

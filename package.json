@@ -8,7 +8,7 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prettier": "prettier --write \"src/**/*.js\"",
+    "prettier": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint src",
     "build": "tsc",
     "prestart": "npm run build",
@@ -59,6 +59,7 @@
     "eslint-plugin-node": "^8.0.1",
     "nodemon": "^1.18.11",
     "prettier": "^1.17.0",
+    "prettier-tslint": "^0.4.2",
     "ts-node": "^8.1.0",
     "ts-node-dev": "^1.0.0-pre.32",
     "tsconfig-paths": "^3.8.0",
