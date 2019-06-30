@@ -1,8 +1,9 @@
-import app from '@/app'
-import graphQLServer from '@/app/graphql/graphServer'
+import { graphqlServer, app } from './app'
 
-import '@/db/mongoose'
+import './db/mongoose'
 
-graphQLServer.applyMiddleware({ app })
+const PORT = 3000
 
-app.listen({ port: 3000 })
+graphqlServer.applyMiddleware({ app })
+
+app.listen({ port: PORT }, () => console.log(`Server started on port ${PORT}`))

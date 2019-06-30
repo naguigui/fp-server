@@ -4,17 +4,10 @@ import RoutineModel from '@/models/routine'
 import UserConnector from '@/app/graphql/connectors/userConnector'
 import RoutineConnector from '@/app/graphql/connectors/routineConnector'
 
-interface Request {
-	req: {
-		JWT_SECRET: string
-		user: {
-			_id: string
-		}
-	}
-}
+import { getUser } from '../../utils/jwtHelpers'
 
-export default async ({ req }: Request) => {
-	const { user } = req
+export default async ({ req }: any) => {
+	const user = getUser(req)
 
 	const userConnector = new UserConnector()
 	const routineConnector = new RoutineConnector()
