@@ -11,10 +11,10 @@ export default gql`
 	}
 
 	type User {
-		_id: ID!
+		_id: ID
 		name: String
 		createdAt: String
-		email: String!
+		email: String
 		gender: String
 		weight: Int
 		height: Int
@@ -29,7 +29,7 @@ export default gql`
 
 	extend type Query {
 		users: [User!]!
-		user: User!
+		user: User
 	}
 
 	extend type Mutation {

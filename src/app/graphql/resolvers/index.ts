@@ -1,11 +1,11 @@
 import { merge } from 'lodash'
 import userResolver from '@/app/graphql/resolvers/user'
 import routineResolver from '@/app/graphql/resolvers/routine'
-import getRoutines from '@/app/graphql/resolvers/routine/getRoutines'
+import routines from '@/app/graphql/resolvers/routine/routines'
 
 const commonResolvers = {
 	User: {
-		routines: getRoutines
+		routines
 	}
 }
 
